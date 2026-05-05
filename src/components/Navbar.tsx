@@ -21,13 +21,7 @@ function ClientWalletButton({ style }: { style: React.CSSProperties }) {
     );
   }
   return (
-    <Suspense
-      fallback={
-        <Button variant="outline" size="sm">
-          Loading...
-        </Button>
-      }
-    >
+    <Suspense fallback={<Button variant="outline" size="sm">Loading...</Button>}>
       <WalletMultiButton style={style} />
     </Suspense>
   );
@@ -60,7 +54,9 @@ export function Navbar() {
               to={l.to}
               className={cn(
                 "px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-accent",
-                location.pathname === l.to ? "text-primary bg-accent" : "text-muted-foreground",
+                location.pathname === l.to
+                  ? "text-primary bg-accent"
+                  : "text-muted-foreground",
               )}
             >
               {l.label}

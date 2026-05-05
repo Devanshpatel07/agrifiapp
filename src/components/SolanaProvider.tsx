@@ -24,7 +24,10 @@ export function SolanaProvider({ children }: { children: ReactNode }) {
   useEffect(() => setMounted(true), []);
 
   const endpoint = useMemo(() => clusterApiUrl(WalletAdapterNetwork.Devnet), []);
-  const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], []);
+  const wallets = useMemo(
+    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
+    [],
+  );
 
   if (!mounted) return <>{children}</>;
 

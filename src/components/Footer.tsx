@@ -8,7 +8,9 @@ export function Footer() {
           <Sprout className="h-4 w-4 text-primary" />
           <span>AgriFi India · Crop-collateralized lending on Solana</span>
         </div>
-        <p className="text-xs text-muted-foreground">Devnet demo · Not financial advice</p>
+        <p className="text-xs text-muted-foreground">
+          Devnet demo · Not financial advice
+        </p>
       </div>
     </footer>
   );

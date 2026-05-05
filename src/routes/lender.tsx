@@ -26,33 +26,9 @@ export const Route = createFileRoute("/lender")({
 });
 
 const pools = [
-  {
-    id: "kharif-24",
-    name: "Kharif Pool 2024",
-    crops: "Rice, Cotton, Sugarcane",
-    apy: 11.2,
-    tvl: 124500,
-    util: 78,
-    risk: "Medium" as const,
-  },
-  {
-    id: "rabi-24",
-    name: "Rabi Pool 2024",
-    crops: "Wheat, Mustard, Gram",
-    apy: 8.6,
-    tvl: 286000,
-    util: 64,
-    risk: "Low" as const,
-  },
-  {
-    id: "hort-24",
-    name: "Horticulture Pool",
-    crops: "Mango, Pomegranate",
-    apy: 13.5,
-    tvl: 52000,
-    util: 45,
-    risk: "High" as const,
-  },
+  { id: "kharif-24", name: "Kharif Pool 2024", crops: "Rice, Cotton, Sugarcane", apy: 11.2, tvl: 124500, util: 78, risk: "Medium" as const },
+  { id: "rabi-24", name: "Rabi Pool 2024", crops: "Wheat, Mustard, Gram", apy: 8.6, tvl: 286000, util: 64, risk: "Low" as const },
+  { id: "hort-24", name: "Horticulture Pool", crops: "Mango, Pomegranate", apy: 13.5, tvl: 52000, util: 45, risk: "High" as const },
 ];
 
 function LenderDashboard() {
@@ -73,26 +49,16 @@ function LenderDashboard() {
         <div className="max-w-3xl mb-8">
           <h1 className="text-3xl font-bold mb-2">Earn yield by funding farmers</h1>
           <p className="text-muted-foreground">
-            Deposit USDC into a crop pool. Earn interest as farmers repay at harvest. Every loan is
-            over-collateralized and insured.
+            Deposit USDC into a crop pool. Earn interest as farmers repay at harvest.
+            Every loan is over-collateralized and insured.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Stat
-            icon={<TrendingUp className="h-5 w-5" />}
-            label="Avg APY"
-            value="11.1%"
-            tone="gold"
-          />
+          <Stat icon={<TrendingUp className="h-5 w-5" />} label="Avg APY" value="11.1%" tone="gold" />
           <Stat icon={<Coins className="h-5 w-5" />} label="Total TVL" value="$462K" />
           <Stat icon={<Users className="h-5 w-5" />} label="Active farmers" value="1,284" />
-          <Stat
-            icon={<ShieldCheck className="h-5 w-5" />}
-            label="Default rate"
-            value="0.8%"
-            tone="success"
-          />
+          <Stat icon={<ShieldCheck className="h-5 w-5" />} label="Default rate" value="0.8%" tone="success" />
         </div>
 
         <h2 className="text-xl font-semibold mb-4">Available pools</h2>
@@ -103,15 +69,7 @@ function LenderDashboard() {
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="font-semibold text-lg">{pool.name}</h3>
-                    <Badge
-                      variant={
-                        pool.risk === "Low"
-                          ? "secondary"
-                          : pool.risk === "High"
-                            ? "destructive"
-                            : "default"
-                      }
-                    >
+                    <Badge variant={pool.risk === "Low" ? "secondary" : pool.risk === "High" ? "destructive" : "default"}>
                       {pool.risk} risk
                     </Badge>
                   </div>
@@ -133,9 +91,7 @@ function LenderDashboard() {
                 </div>
 
                 <div className="lg:w-64 space-y-2">
-                  <Label htmlFor={`amt-${pool.id}`} className="text-xs">
-                    Deposit amount (USDC)
-                  </Label>
+                  <Label htmlFor={`amt-${pool.id}`} className="text-xs">Deposit amount (USDC)</Label>
                   <Input
                     id={`amt-${pool.id}`}
                     type="number"
@@ -182,8 +138,8 @@ function Stat({
     tone === "gold"
       ? "bg-gold/10 text-gold"
       : tone === "success"
-        ? "bg-success/10 text-success"
-        : "bg-primary/10 text-primary";
+      ? "bg-success/10 text-success"
+      : "bg-primary/10 text-primary";
   return (
     <Card className="p-5">
       <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-3 ${toneClass}`}>

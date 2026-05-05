@@ -1,29 +1,14 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useSafeWallet } from "@/hooks/useSafeWallet";
-import {
-  Wheat,
-  MapPin,
-  Calendar,
-  Sparkles,
-  ArrowRight,
-  CheckCircle2,
-  ShieldCheck,
-  FileText,
-} from "lucide-react";
+import { Wheat, MapPin, Calendar, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/onboarding")({
@@ -66,11 +51,9 @@ function Onboarding() {
   const [village, setVillage] = useState("");
   const [state, setState] = useState("");
   const [aadhaar, setAadhaar] = useState("");
-  const [landId, setLandId] = useState("");
   const [crop, setCrop] = useState("wheat");
   const [area, setArea] = useState("2");
   const [harvestDate, setHarvestDate] = useState("");
-  const [isVerifying, setIsVerifying] = useState(false);
 
   const cropInfo = CROPS.find((c) => c.value === crop)!;
   const acres = parseFloat(area) || 0;
@@ -78,15 +61,6 @@ function Onboarding() {
   const estValueINR = estYieldQuintals * cropInfo.pricePerQuintal;
   const maxLoanINR = Math.floor(estValueINR * 0.6);
   const maxLoanUSDC = Math.floor(maxLoanINR / 83);
-
-  const handleVerifyLand = () => {
-    setIsVerifying(true);
-    setTimeout(() => {
-      setIsVerifying(false);
-      setStep(3);
-      toast.success("Land record verified successfully!");
-    }, 2000);
-  };
 
   const handleSubmit = () => {
     if (!connected) {
@@ -105,9 +79,11 @@ function Onboarding() {
       <main className="flex-1 container mx-auto px-4 py-10 max-w-2xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Apply for a crop loan</h1>
-          <p className="text-muted-foreground">Step {step} of 4 · Takes about 5 minutes</p>
+          <p className="text-muted-foreground">
+            Step {step} of 3 · Takes about 5 minutes
+          </p>
           <div className="mt-4 flex gap-2">
-            {[1, 2, 3, 4].map((s) => (
+            {[1, 2, 3].map((s) => (
               <div
                 key={s}
                 className={`h-2 flex-1 rounded-full transition-colors ${
@@ -126,43 +102,20 @@ function Onboarding() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="name">Full name</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Ramesh Kumar"
-              />
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ramesh Kumar" />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="village">Village</Label>
-                <Input
-                  id="village"
-                  value={village}
-                  onChange={(e) => setVillage(e.target.value)}
-                  placeholder="Karnal"
-                />
+                <Input id="village" value={village} onChange={(e) => setVillage(e.target.value)} placeholder="Karnal" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="state">State</Label>
                 <Select value={state} onValueChange={setState}>
-                  <SelectTrigger id="state">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
+                  <SelectTrigger id="state"><SelectValue placeholder="Select" /></SelectTrigger>
                   <SelectContent>
-                    {[
-                      "Punjab",
-                      "Haryana",
-                      "Uttar Pradesh",
-                      "Maharashtra",
-                      "Karnataka",
-                      "Telangana",
-                      "Bihar",
-                      "Gujarat",
-                    ].map((s) => (
-                      <SelectItem key={s} value={s}>
-                        {s}
-                      </SelectItem>
+                    {["Punjab", "Haryana", "Uttar Pradesh", "Maharashtra", "Karnataka", "Telangana", "Bihar", "Gujarat"].map((s) => (
+                      <SelectItem key={s} value={s}>{s}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -190,66 +143,16 @@ function Onboarding() {
         {step === 2 && (
           <Card className="p-6 space-y-4">
             <div className="flex items-center gap-2 text-primary mb-2">
-              <ShieldCheck className="h-5 w-5" />
-              <h2 className="font-semibold">Land Record Verification</h2>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              We need to verify your ownership via the official land records (Bhulekh/Jamabandi).
-            </p>
-            <div className="space-y-2">
-              <Label htmlFor="landId">Khasra / Survey Number</Label>
-              <Input
-                id="landId"
-                value={landId}
-                onChange={(e) => setLandId(e.target.value)}
-                placeholder="e.g. 123/45"
-              />
-            </div>
-            <div className="border-2 border-dashed border-border rounded-lg p-8 text-center space-y-3">
-              <div className="mx-auto w-12 h-12 rounded-full bg-accent/50 flex items-center justify-center">
-                <FileText className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="text-sm font-medium">Upload 7/12 Extract / Jamabandi</p>
-                <p className="text-xs text-muted-foreground">PDF, JPG or PNG up to 5MB</p>
-              </div>
-              <Button variant="secondary" size="sm" className="relative">
-                Choose File
-                <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" />
-              </Button>
-            </div>
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setStep(1)} className="flex-1">
-                Back
-              </Button>
-              <Button
-                onClick={handleVerifyLand}
-                disabled={!landId || isVerifying}
-                className="flex-1"
-              >
-                {isVerifying ? "Verifying..." : "Verify Record"}
-              </Button>
-            </div>
-          </Card>
-        )}
-
-        {step === 3 && (
-          <Card className="p-6 space-y-4">
-            <div className="flex items-center gap-2 text-primary mb-2">
               <Wheat className="h-5 w-5" />
               <h2 className="font-semibold">Crop details</h2>
             </div>
             <div className="space-y-2">
               <Label htmlFor="crop">Crop type</Label>
               <Select value={crop} onValueChange={setCrop}>
-                <SelectTrigger id="crop">
-                  <SelectValue />
-                </SelectTrigger>
+                <SelectTrigger id="crop"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {CROPS.map((c) => (
-                    <SelectItem key={c.value} value={c.value}>
-                      {c.label}
-                    </SelectItem>
+                    <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -257,41 +160,26 @@ function Onboarding() {
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label htmlFor="area">Area (acres)</Label>
-                <Input
-                  id="area"
-                  type="number"
-                  min="0.5"
-                  step="0.5"
-                  value={area}
-                  onChange={(e) => setArea(e.target.value)}
-                />
+                <Input id="area" type="number" min="0.5" step="0.5" value={area} onChange={(e) => setArea(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="harvest">Expected harvest</Label>
                 <div className="relative">
                   <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                  <Input
-                    id="harvest"
-                    type="date"
-                    value={harvestDate}
-                    onChange={(e) => setHarvestDate(e.target.value)}
-                    className="pl-9"
-                  />
+                  <Input id="harvest" type="date" value={harvestDate} onChange={(e) => setHarvestDate(e.target.value)} className="pl-9" />
                 </div>
               </div>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setStep(2)} className="flex-1">
-                Back
-              </Button>
-              <Button onClick={() => setStep(4)} disabled={!harvestDate} className="flex-1">
+              <Button variant="outline" onClick={() => setStep(1)} className="flex-1">Back</Button>
+              <Button onClick={() => setStep(3)} disabled={!harvestDate} className="flex-1">
                 Get AI estimate <Sparkles className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </Card>
         )}
 
-        {step === 4 && (
+        {step === 3 && (
           <Card className="p-6 space-y-5">
             <div className="flex items-center gap-2 text-primary mb-2">
               <Sparkles className="h-5 w-5" />
@@ -317,14 +205,11 @@ function Onboarding() {
             <div className="flex items-start gap-2 text-xs text-muted-foreground bg-accent/50 p-3 rounded-md">
               <CheckCircle2 className="h-4 w-4 text-success shrink-0 mt-0.5" />
               <span>
-                Confirming will mint a Crop-NFT to your wallet and open a USDC borrowing position on
-                Solana Devnet.
+                Confirming will mint a Crop-NFT to your wallet and open a USDC borrowing position on Solana Devnet.
               </span>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" onClick={() => setStep(3)} className="flex-1">
-                Back
-              </Button>
+              <Button variant="outline" onClick={() => setStep(2)} className="flex-1">Back</Button>
               <Button onClick={handleSubmit} className="flex-1">
                 {connected ? "Mint NFT & Borrow" : "Connect wallet to continue"}
               </Button>
@@ -332,7 +217,6 @@ function Onboarding() {
           </Card>
         )}
       </main>
-
       <Footer />
     </div>
   );

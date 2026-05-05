@@ -1,14 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  Sprout,
-  Coins,
-  ShieldCheck,
-  TrendingUp,
-  ArrowRight,
-  Wheat,
-  Satellite,
-  Users,
-} from "lucide-react";
+import { Sprout, Coins, ShieldCheck, TrendingUp, ArrowRight, Wheat, Satellite, Users } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -64,8 +55,8 @@ function Index() {
                 </span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Skip the moneylender. Tokenize your standing crop, borrow USDC instantly at fair
-                rates, and repay when you sell at the mandi.
+                Skip the moneylender. Tokenize your standing crop, borrow USDC
+                instantly at fair rates, and repay when you sell at the mandi.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button size="lg" asChild className="text-base">
@@ -90,7 +81,9 @@ function Index() {
         <section className="container mx-auto px-4 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-3">How it works</h2>
-            <p className="text-muted-foreground">From standing crop to USDC in your wallet</p>
+            <p className="text-muted-foreground">
+              From standing crop to USDC in your wallet
+            </p>
           </div>
           <div className="grid md:grid-cols-4 gap-4">
             <Step
@@ -145,10 +138,7 @@ function Index() {
 
         {/* CTA */}
         <section className="container mx-auto px-4 py-16 text-center">
-          <Card
-            className="p-8 md:p-12 max-w-3xl mx-auto"
-            style={{ background: "var(--gradient-hero)" }}
-          >
+          <Card className="p-8 md:p-12 max-w-3xl mx-auto" style={{ background: "var(--gradient-hero)" }}>
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-3">
               Ready to grow with AgriFi?
             </h2>
@@ -200,7 +190,15 @@ function Step({
   );
 }
 
-function Feature({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
+function Feature({
+  icon,
+  title,
+  desc,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}) {
   return (
     <div className="text-center md:text-left">
       <div className="inline-flex p-3 rounded-lg bg-background mb-3">{icon}</div>

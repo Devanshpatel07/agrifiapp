@@ -32,10 +32,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "AgriFi India — Crop-collateralized loans on Solana" },
-      {
-        name: "description",
-        content: "Decentralized agricultural lending for Indian farmers, powered by Solana.",
-      },
+      { name: "description", content: "Decentralized agricultural lending for Indian farmers, powered by Solana." },
       { name: "author", content: "AgriFi" },
       { property: "og:title", content: "AgriFi India" },
       { property: "og:description", content: "Crop-collateralized loans on Solana." },
