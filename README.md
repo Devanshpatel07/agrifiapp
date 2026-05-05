@@ -245,4 +245,3 @@ This project is currently unlicensed. Please contact the repository owner for us
 
 ---
 
-*Built with ❤️ for the agricultural community using Solana and modern Web3 technologies.*
