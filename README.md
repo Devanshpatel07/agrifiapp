@@ -223,6 +223,17 @@ The `wrangler.jsonc` is pre-configured with:
 - **Node.js compatibility** flag enabled
 - **Entry point:** `@tanstack/react-start/server-entry`
 
+### Deploy to Vercel
+
+1. **Push to GitHub**: Ensure your latest changes are pushed to your repository.
+2. **Import to Vercel**: 
+   - Go to [Vercel Dashboard](https://vercel.com/new).
+   - Import your GitHub repository.
+   - Vercel will automatically detect the build settings.
+3. **Environment Variables**: Add any necessary environment variables (like `VITE_RPC_ENDPOINT`) in the Vercel project settings.
+
+AgriFi is optimized for Vercel's Edge and Serverless functions via TanStack Start.
+
 ---
 
 ## Contributing
